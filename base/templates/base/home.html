@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="home-container">
+  <div>
+     <h2>
+        <small class="text-muted">{{ label }} ({{ count }})</small>
+     </h2>
+     <a href="{% url 'bill_form' %}">Create bill</a>
+     <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-light">
+           <tr>
+              <th scope="col">Bill Assigned to</th>
+              <th scope="col">Due Date</th>
+              <th scope="col">Amount</th>
+              <th scope="col"></th>
+           </tr>
+        </thead>
+        <tbody>
+           {% for bill in bills %}  
+           <tr>
+              <td><a href="{% url 'bill' bill.id %}">{{bill.customer.username}}</a></td>
+              <td>{{bill.dueDate}}</td>
+              <td>{{bill.amount}}</td>
+              <td><a href="{% url 'update_bill' bill.id %}">edit</a></td>
+           </tr>
+           {% endfor %}
+        </tbody>
+     </table>
+  </div>
+  <div>
+     <h2>
+        <small class="text-muted-right">Latest Payments</small>
+     </h2>
+     <br>
+     {% for payment in payments %}  
+     <div class="card" style="width: 18rem;">
+        <div class="card-body">
+           <h5 class="card-title">{{payment.bill.customer.username}}</h5>
+           <h6 class="card-subtitle mb-2 text-muted">{{payment.created}}</h6>
+           <p class="card-text">Customer has paid {{payment.bill.amount}} birr by {{payment.paymentChannel}} with {{payment.transactionId}} receipt number.</p>
+           <a href="#" class="card-link">view</a>
+        </div>
+     </div>
+     {% endfor %}
+  </div>
+</div>
+{% endblock %}

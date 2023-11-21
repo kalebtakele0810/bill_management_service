@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .home-container{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    }
+ </style>
+ <div class="home-container">
+    <div>
+       <h2>
+          <small class="text-muted">{{ label }} ({{ count }})</small>
+       </h2>
+    </div>
+    <div>
+       <h2>
+          <small class="text-muted">Latest Payments</small>
+       </h2>
+       <br>
+    </div>
+ </div>
+{% endblock %}
