@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import PaymentSerializer,ModelSerializer
+from .serializers import PaymentSerializer
 from loguru import logger
 from rest_framework import status,serializers
 from rest_framework.response import Response
@@ -29,9 +29,9 @@ def getRoutes(request):
 @api_view(['POST'])
 def savePayment(request):
     if request.method == 'POST':
-        # if request.user.roles.filter(name='Customer').exists():
-        payment = PaymentSerializer(data=request.data)
-        if payment.is_valid():
-            payment.save()
-            return Response(payment.data)
+        if request.user.roles.filter(name='Customer').exists():
+            payment = PaymentSerializer(data=request.data)
+            if payment.is_valid():
+                payment.save()
+                return Response(payment.data)
     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -22,7 +22,7 @@ class Bill(models.Model):
         PENDING = 'PENDING', _('Pending')
         PAID = 'PAID', _('Paid')
         OVERDUE = 'OVERDUE', _('Overdue')
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     dueDate = models.DateField(max_length=200,
                                validators=[no_past_due_date])
