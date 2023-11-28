@@ -26,7 +26,7 @@ class Bill(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     dueDate = models.DateField(max_length=200,
                                validators=[no_past_due_date])
-    amount = models.IntegerField(max_length=20,default=0, validators=[MinValueValidator(0)])
+    amount = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     status = models.CharField(max_length=10,
        choices=Status.choices,
        default=Status.PENDING                       

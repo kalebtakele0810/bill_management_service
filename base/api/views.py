@@ -1,14 +1,12 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view,permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import PaymentSerializer
+from .serializers import PaymentSerializer,ModelSerializer
 from loguru import logger
 from rest_framework import status,serializers
 from rest_framework.response import Response
 
-from base.api import serializers
+# from base.api import serializers
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -31,10 +29,9 @@ def getRoutes(request):
 @api_view(['POST'])
 def savePayment(request):
     if request.method == 'POST':
-        if request.user.roles.filter(name='Customer').exists():
-            payment = PaymentSerializer(data=request.data)
-            if payment.is_valid():
-                logger.info('Save payment request:'+ str(payment.validated_data.RequestRefID))
-                payment.validated_data.payload.save()
-                return Response(payment)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+        # if request.user.roles.filter(name='Customer').exists():
+        payment = PaymentSerializer(data=request.data)
+        if payment.is_valid():
+            payment.save()
+            return Response(payment.data)
+    return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)

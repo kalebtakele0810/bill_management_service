@@ -5,15 +5,16 @@ from django.shortcuts import redirect
 from loguru import logger
 
 def home(request):
+    # limit_value,offset_value
     payments = Payment.objects.all()[:10]
     bills = Bill.objects.filter(status='PENDING')
     label = 'Current Due Bills'
     count = bills.count()
     context = {'bills':bills, 'payments':payments, 'label' : label, 'count':count}
+    
     return render(request,'base/home.html',context)
 
-def bill(request,pk):
-    
+def bill(request,pk):  
     bill = Bill.objects.get(id=pk)
     context={'bill':bill} 
     return render(request,'base/bill.html',context)
