@@ -20,7 +20,7 @@ def bill(request,pk):
     return render(request,'base/bill.html',context)
 
 def createBill(request):
-    if request.user.roles.filter(name='Biller').exists():
+    # if request.user.roles.filter(name='Biller').exists():
         form = BillForm()
         if request.method == 'POST':
             form = BillForm(request.POST)
@@ -31,7 +31,7 @@ def createBill(request):
         return render(request,'base/bill_form.html',context)
 
 def updateBill(request,pk):
-    if request.user.roles.filter(name='Biller').exists():
+    # if request.user.roles.filter(name='Biller').exists():
         bill = Bill.objects.get(id=pk)
         form = BillForm(instance=bill)
         if request.method == 'POST':
@@ -43,13 +43,13 @@ def updateBill(request,pk):
         return render(request,'base/bill_form.html',context)
 
 def latestPayments(request):
-    if request.user.roles.filter(name='Biller').exists():
+    # if request.user.role.filter(name='Biller').exists():
         payments = Payment.objects.all()
         context = {'payments':payments}
         return render(request,'base/latest_payments.html',context)
 
 def overDueBillsList(request):
-    if request.user.roles.filter(name='Biller').exists():
+    # if request.user.roles.filter(name='Biller').exists():
         payments = Payment.objects.all()[:10]
         bills = Bill.objects.filter(status='OVERDUE')
         label = 'Unpaid bills'

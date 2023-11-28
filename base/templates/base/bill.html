@@ -1,8 +1,12 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<div>
-    Billing page {{bill.customer.username}}
+<div style="padding: 2rem;">
+    <u><h3>Billing page</h3></u>
+    Bill Assigned to: <b>{{bill.customer.first_name}} {{bill.customer.last_name}}</b> <br>
+    Due Date: <b>{{bill.dueDate}}</b> <br>
+    Amount: <b>{{bill.amount}}</b><br>
+    Bill status: <b>{{bill.status}}</b><br>
 </div>
 
 {% endblock %}
